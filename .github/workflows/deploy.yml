@@ -32,6 +32,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID:     ${{ secrets.SPACES_ACCESS_KEY }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_KEY }}
+      AWS_EC2_METADATA_DISABLED: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
@@ -122,4 +123,3 @@ jobs:
           done
           curl -sf http://${{ needs.provision.outputs.server_ip }}/health \
             || { echo "ERROR: /health returned non-2xx after all retries — deploy failed"; exit 1; }
-
